@@ -1,10 +1,10 @@
 import { IoLocationSharp } from "react-icons/io5";
 import { MdDateRange } from "react-icons/md";
 import { PiBuildingOfficeLight } from "react-icons/pi";
+import { Link } from "react-router-dom";
 
 const Job = ({ job }) => {
-    console.log(job)
-    const { company_logo, company, description, jobType, location, title, salaryRange, applicationDeadline, requirements } = job;
+    const { company_logo, company, description, jobType, location, title, salaryRange, applicationDeadline, requirements, _id } = job;
     return (
         <div className="shadow-sm shadow-second rounded-xl m-2 flex flex-col justify-between">
             {/* card body */}
@@ -36,8 +36,10 @@ const Job = ({ job }) => {
             </div>
             {/* card footer */}
             <div className="bg-second p-4 rounded-bl-xl rounded-br-xl flex justify-between items-center">
-                <p><span className="text-2xl font-bold text-first">{salaryRange.max} <span className="text-white text-lg">/ Week</span></span></p>
-                <button className="btn bg-first text-white font-semibold border-none">Details</button>
+                <p><span className="text-2xl font-bold text-first">{salaryRange.max} BDT <span className="text-white text-lg">/ Week</span></span></p>
+                <Link to={`/jobs/${_id}`}>
+                    <button className="btn bg-first text-white font-semibold border-none">Details</button>
+                </Link>
             </div>
         </div>
     );
