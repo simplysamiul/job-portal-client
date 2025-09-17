@@ -7,7 +7,7 @@ const Home = () => {
     const [dataLoading, setDataLoading] = useState(false);
     useEffect(() => {
         setDataLoading(true);
-        fetch("http://localhost:5000/all_jobs")
+        fetch("http://localhost:5000/jobs")
             .then(res => res.json())
             .then(data => {
                 setJobs(data);
