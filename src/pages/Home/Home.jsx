@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Banner from './Banner';
 import Jobs from './Jobs';
+import Loader from '../custome/Loader';
 
 const Home = () => {
     const [jobs, setJobs] = useState([]);
@@ -13,7 +14,6 @@ const Home = () => {
                 setJobs(data);
                 setDataLoading(false);
             }).catch(err => {
-                setDataLoading(false);
                 console.log(err);
             })
     }, [])
@@ -21,7 +21,8 @@ const Home = () => {
         <div>
             <Banner />
             {/* all jobs */}
-            <div className='my-8'>
+            {dataLoading ? <Loader />
+            :<div className='my-8'>
                 {/* jobs section header */}
                 <div className='text-center'>
                     <h2 className='text-3xl md:text-4xl lg:text-5xl font-bold text-second'>Jobs of the day</h2>
@@ -32,7 +33,7 @@ const Home = () => {
                 
                 {/* all jobs */}
                 <Jobs jobs={jobs} />
-            </div>
+            </div>}
         </div>
     );
 };

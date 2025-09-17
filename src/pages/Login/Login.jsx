@@ -2,12 +2,18 @@ import React, { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContrext/AuthContrext';
 import signLottie from '../../assets/lottie/Sign up.json';
 import Lottie from 'lottie-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import googleLogo from '../../assets/lottie/Google-Logo.json';
 
 const Login = () => {
     // USE CONTEXT
     const { setLoading, signInUser, setUser, loading, signInWithGoogle } = useContext(AuthContext);
+
+    // location
+    const location = useLocation();
+    const navigate = useNavigate();
+    const from = location.state || "/";
+
 
     const handeleSignInForm = (e) => {
         e.preventDefault();
@@ -21,7 +27,7 @@ const Login = () => {
             .then(res => {
                 setUser(res.user);
                 setLoading(false);
-                console.log(res);
+                navigate(from);
             }).catch(err => {
                 console.log(err)
             })
@@ -33,6 +39,7 @@ const Login = () => {
         .then(res => {
             setUser(res.user);
             setLoading(false);
+            navigate(from);
         }).catch(err => {
             setLoading(false);
             console.log(err)

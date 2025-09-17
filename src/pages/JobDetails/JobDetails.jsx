@@ -3,7 +3,7 @@ import { FaMoneyBill } from 'react-icons/fa';
 import { IoLocationSharp } from 'react-icons/io5';
 import { MdDateRange, MdEmail } from 'react-icons/md';
 import { PiBuildingOfficeDuotone, PiSuitcaseSimpleLight } from 'react-icons/pi';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Loader from '../custome/Loader';
 
 const JobDetails = () => {
@@ -12,8 +12,7 @@ const JobDetails = () => {
     // get specific data
     const [job, setJob] = useState({});
     const [dataLoading, setDataLoadiong] = useState(false);
-    console.log(job)
-    const { applicationDeadline, category, company, company_logo, hr_email, jobType, location, requirements, responsibilities, salaryRange, description, title } = job
+    const { applicationDeadline, category, company, company_logo, hr_email, jobType, location, requirements, responsibilities, salaryRange, description, title, _id } = job
     useEffect(() => {
         setDataLoadiong(true);
         fetch(`http://localhost:5000/jobs/${id}`)
@@ -129,6 +128,9 @@ const JobDetails = () => {
                         <p>{description}</p>
                     </div>
                 </div>
+
+                {/* apply now button */}
+                <Link to={`/jobApply/${_id}`} className='btn bg-first text-white font-bold my-6 w-full'>Appy Now</Link>
 
             </div>}
         </div>
