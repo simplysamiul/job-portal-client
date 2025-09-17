@@ -1,6 +1,9 @@
 import { useParams } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
+import '../../style/JobApply.css';
+import axios from 'axios';
 
 const JobApply = () => {
     const { id } = useParams();
@@ -28,27 +31,53 @@ const JobApply = () => {
 
         const form = e.target;
         const name = form.name.value;
-        const email = form.email.value;
         const position = form.position.value;
         const number = form.number.value;
         const linkdin = form.linkdin.value;
         const github = form.github.value;
         const address = form.address.value;
+        const cv = form.cv.value;
         const description = form.description.value;
 
+        const application = {
+            jobId: id,
+            name,
+            email: user.email,
+            position,
+            number,
+            linkdin,
+            github,
+            address,
+            cv,
+            description
+        };
 
-        console.log(name, email, position, number, linkdin, github, address, description);
+        // send job application to the databse
+
+        axios.post("http://localhost:5000/jobApplication", application)
+            .then(function (res) {
+                if (res.data.insertedId) {
+                    Swal.fire({
+                        text: "Application submitted successfully ...!",
+                        icon: "success"
+                    });
+                    form.reset();
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
 
     }
     return (
         <div>
             {/* job application form */}
             {/* job applied company info */}
-           {dataLoading ? <span className="loading loading-bars loading-xl mx-auto text-first"></span> 
-           : <div className='flex items-center justify-center flex-col mt-4'>
-                <img className='w-[70px]' src={company_logo} alt={`${company}-Img`} />
-                <h1 className='text-3xl text-center text-second font-bold my-4'>{title}</h1>
-            </div>}
+            {dataLoading ? <span className="loading loading-bars loading-xl mx-auto text-first"></span>
+                : <div className='flex items-center justify-center flex-col mt-4'>
+                    <img className='w-[70px]' src={company_logo} alt={`${company}-Img`} />
+                    <h1 className='text-3xl text-center text-second font-bold my-4'>{title}</h1>
+                </div>}
             <div className='flex items-center justify-center lg:h-[70vh]'>
                 <form onSubmit={handelJobApplyForm}>
                     <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4 w-full">
@@ -56,16 +85,17 @@ const JobApply = () => {
                             <div className='w-full md:w-1/2'>
 
                                 <label className="label">Name <span className='text-red-500'>*</span></label>
-                                <input name='name' type="pass" className="input w-full mb-4" placeholder="Name" required />
+                                <input name='name' type="text" className="input w-full mb-4" placeholder="Name" required />
 
-                                <label className="label">Email <span className='text-red-500'>*</span></label>
-                                <input name='email' type="email" className="input w-full mb-4" placeholder="Email" required />
 
                                 <label className="label">Position <span className='text-red-500'>*</span></label>
                                 <input name='position' type="text" className="input w-full mb-4" placeholder="Position For" required />
 
                                 <label className="label">Contact Number <span className='text-red-500'>*</span></label>
                                 <input name='number' type="number" className="input w-full mb-4" placeholder="Contact Number" required />
+
+                                <label className="label">CV link <span className='text-red-500'>*</span></label>
+                                <input name='cv' type="text" className="input w-full mb-4" placeholder="Your CV link" required />
 
                             </div>
 
@@ -75,10 +105,11 @@ const JobApply = () => {
                                 <input name='linkdin' type="text" className="input w-full mb-4" placeholder="Linkdin profile link" />
 
                                 <label className="label">Github Profile<span>( Optional )</span></label>
-                                <input name='github' type="email" className="input w-full mb-4" placeholder="Github profile link" />
+                                <input name='github' type="text" className="input w-full mb-4" placeholder="Github profile link" />
 
                                 <label className="label">Address <span className='text-red-500'>*</span></label>
                                 <input name='address' type="text" className="input w-full mb-4" placeholder="Your address" required />
+
 
                             </div>
                         </div>

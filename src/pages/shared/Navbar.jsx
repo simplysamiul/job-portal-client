@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import logo from '../../assets/logo-01.svg'
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContrext/AuthContrext';
@@ -6,11 +6,14 @@ import { AuthContext } from '../../context/AuthContrext/AuthContrext';
 const Navbar = () => {
     const {user, logOut, setLoading} = useContext(AuthContext);
     const links = <>
-        <li><a className='text-second font-semibold'>Home</a></li>
+        <li><NavLink to="/" className='text-second font-semibold'>Home</NavLink></li>
         <li><a className='text-second font-semibold'>Find Job</a></li>
         <li><a className='text-second font-semibold'>Recruiters</a></li>
         <li><a className='text-second font-semibold'>Candidate</a></li>
         <li><a className='text-second font-semibold'>Blog</a></li>
+        {user && <>
+            <li><NavLink to="/myApplications" className='text-second font-semibold'>My Applications</NavLink></li>
+        </>}
     </>
 
     const handelSignOut = () => {
