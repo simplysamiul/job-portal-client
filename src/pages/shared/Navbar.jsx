@@ -11,9 +11,17 @@ const Navbar = () => {
         <li><a className='text-second font-semibold'>Recruiters</a></li>
         <li><a className='text-second font-semibold'>Candidate</a></li>
         <li><a className='text-second font-semibold'>Blog</a></li>
+        {/* for applicant */}
         {user && <>
             <li><NavLink to="/myApplications" className='text-second font-semibold'>My Applications</NavLink></li>
         </>}
+
+        {/* for recruter */}
+        {
+            user && <>
+                <li><NavLink to="/addjob" className='text-second font-semibold'>Add Job</NavLink></li>
+            </>
+        }
     </>
 
     const handelSignOut = () => {
