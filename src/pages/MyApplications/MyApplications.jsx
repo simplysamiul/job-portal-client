@@ -10,7 +10,6 @@ const MyApplications = () => {
     const {user} = useAuth();
     return (
         <div className='mt-15 mb-26'>
-            <h2 className='text-center text-second text-4xl font-bold mb-12'>Application List</h2>
             <Suspense fallback={<Loader />}>
                 <ApplicationsList myApplicationsPromise ={myApplicationsPromise(user.email)} />
             </Suspense>

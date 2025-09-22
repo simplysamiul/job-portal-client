@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import Loader from '../custome/Loader';
+import { useParams } from 'react-router-dom';
 import ShowJobDetails from '../shared/ShowJobDetails';
+import Loader from '../custome/Loader';
 
-const JobDetails = () => {
+const PostedJobDetailsView = () => {
     const { id } = useParams();
 
     // get specific data
     const [job, setJob] = useState({});
     const [dataLoading, setDataLoadiong] = useState(false);
-    
+
     useEffect(() => {
         setDataLoadiong(true);
         fetch(`http://localhost:5000/jobs/${id}`)
@@ -23,13 +23,14 @@ const JobDetails = () => {
     }, [id])
     return (
         <div>
-            {/* job details */}
-           {dataLoading ? <Loader />
-           
-           : <ShowJobDetails job={job} />}
+            <div>
+                {/* job details */}
+                {dataLoading ? <Loader />
+
+                    : <ShowJobDetails job={job} />}
+            </div>
         </div>
     );
 };
 
-export default JobDetails;
-
+export default PostedJobDetailsView;

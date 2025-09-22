@@ -1,8 +1,10 @@
+import axios from "axios";
 import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const AddJob = () => {
 
-    const {user} = useAuth();
+    const { user } = useAuth();
 
     const handelAddJob = (e) => {
         e.preventDefault();
@@ -11,17 +13,31 @@ const AddJob = () => {
         const data = Object.fromEntries(formData.entries());
 
         // process salary range data
-        const {min, max, currency, ...newJob} = data;
-        newJob.salaryRange = {min, max, currency}
+        const { min, max, currency, ...newJob } = data;
+        newJob.salaryRange = { min, max, currency }
 
 
         // process requirments
-        newJob.requirements = newJob.requirements.split(",").map(req => req.trim());
+        newJob.requirements = newJob.requirements.split(";").map(req => req.trim());
 
         // process of job responsibilites
-        newJob.responsibilities = newJob.responsibilities.split(",").map(res => res.trim())
-        console.log(newJob.responsibilities)
-        console.log(data)
+        newJob.responsibilities = newJob.responsibilities.split(";").map(res => res.trim())
+
+        newJob.status = "Active";
+
+        axios.post("http://localhost:5000/jobs", newJob)
+            .then(res => {
+                console.log(res)
+                if (res.data.insertedId) {
+                    Swal.fire({
+                        text: "Job added successfully ...!",
+                        icon: "success"
+                    });
+                    form.reset();
+                }
+            }).catch(err => {
+                console.log(err)
+            })
     }
     return (
         <div className='my-12'>
@@ -37,7 +53,7 @@ const AddJob = () => {
                         <input name='company' type="text" className="input w-full" placeholder="Company Name" />
 
                         <label className="label">Location</label>
-                        <input name='loation' type="text" className="input w-full" placeholder="Company Location" />
+                        <input name='location' type="text" className="input w-full" placeholder="Company Location" />
 
                         <label className="label">Company Logo</label>
                         <input name='company_logo' type="text" className="input w-full" placeholder="Company Logo URL" />
@@ -120,14 +136,14 @@ const AddJob = () => {
                     {/* Job Requirments */}
                     <fieldset className="fieldset border-base-300 rounded-box w-full border p-4">
                         <legend className="fieldset-legend">Job Requirments</legend>
-                        <textarea name='requirements' className="textarea w-full" placeholder="Job Requirments (separate by comma)"></textarea>
+                        <textarea name='requirements' className="textarea w-full" placeholder="Job Requirments (separate by ;)"></textarea>
 
                     </fieldset>
 
                     {/* Job responsibilities */}
                     <fieldset className="fieldset border-base-300 rounded-box w-full border p-4">
                         <legend className="fieldset-legend">Job Responsibilities</legend>
-                        <textarea name='responsibilities' className="textarea w-full" placeholder="Job Responsibilities (separate by comma)"></textarea>
+                        <textarea name='responsibilities' className="textarea w-full" placeholder="Job Responsibilities (separate by ;)"></textarea>
 
                     </fieldset>
 

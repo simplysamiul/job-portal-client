@@ -20,6 +20,7 @@ const Navbar = () => {
         {
             user && <>
                 <li><NavLink to="/addjob" className='text-second font-semibold'>Add Job</NavLink></li>
+                <li><NavLink to="/mypostedjobs" className='text-second font-semibold'>My Posted Job</NavLink></li>
             </>
         }
     </>
