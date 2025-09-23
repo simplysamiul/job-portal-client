@@ -3,10 +3,11 @@ import registerLottie from '../../assets/lottie/register.json';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContrext/AuthContrext';
 import { Link, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const Register = () => {
     // USE CONTEXT
-    const { setLoading, createUser, setUser, loading} = useContext(AuthContext);
+    const { setLoading, createUser, setUser, loading } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handeleRegisterForm = (e) => {
@@ -17,13 +18,21 @@ const Register = () => {
 
         // USER SIGN IN
         createUser(email, pass)
-        .then(res => {
-            setUser(res.user);
-            navigate("/");
-            setLoading(false);
-        }).catch(err => {
-            console.log(err)
-        })
+            .then(res => {
+                setUser(res.user);
+                navigate("/");
+                setLoading(false);
+                Swal.fire({
+                    text: "Account Create Successfully....!",
+                    icon: "success"
+                });
+            }).catch(err => {
+                setLoading(false);
+                Swal.fire({
+                    text: `${err.message}`,
+                    icon: "error"
+                });
+            })
     }
     return (
         <div>
@@ -37,7 +46,7 @@ const Register = () => {
                                 <label className="label">Password <span className='text-red-500'>*</span></label>
                                 <input name='pass' type="password" className="input w-full" placeholder="Password" required />
                                 {loading ? <span className="loading loading-spinner loading-xl mx-auto"></span>
-                                :<button className="btn btn-neutral mt-4 bg-second">Create Account</button>}
+                                    : <button className="btn btn-neutral mt-4 bg-second">Create Account</button>}
                                 <p className='mt-4 text-sm'>Already have an account ? <Link to="/login" className='underline font-bold text-first'>Log-in</Link></p>
                             </fieldset>
                         </form>

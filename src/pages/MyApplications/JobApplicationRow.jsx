@@ -1,8 +1,10 @@
 import { FaEye } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
 const JobApplicationRow = ({ application, index }) => {
-    const { company_logo, company, position, email, title, _id } = application;
+    const { company_logo, company, position, email, title, _id, jobId } = application;
+    console.log(application)
     return (
         <tr>
             <th>
@@ -32,7 +34,7 @@ const JobApplicationRow = ({ application, index }) => {
             </td>
             <td>{email}</td>
             <td className='flex items-center space-x-4'>
-                <span className='btn bg-first p-2 text-white text-lg'><FaEye /></span>
+                <Link to={`/jobs/${jobId}`}><span className='btn bg-first p-2 text-white text-lg'><FaEye /></span></Link>
                 <span className='btn bg-red-600 p-2 text-white text-lg'><MdDelete /></span>
             </td>
         </tr>

@@ -117,7 +117,7 @@ const JobApply = () => {
                         <textarea name='description' className="textarea h-24 w-full" placeholder="Your Description"></textarea>
 
 
-                        <button className="btn btn-neutral mt-4 bg-second">Login</button>
+                        <button className="btn btn-neutral mt-4 bg-first border-first">Submit Application</button>
                     </fieldset>
                 </form>
             </div>

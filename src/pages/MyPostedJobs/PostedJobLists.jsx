@@ -14,6 +14,7 @@ const PostedJobLists = ({ jobsCreatedByPromise }) => {
                     <tr className="border-b-1 border-gray-400">
                         <th>#</th>
                         <th>Title</th>
+                        <th>Applicant Apply</th>
                         <th>Category</th>
                         <th>Deadline</th>
                         <th>Action</th>

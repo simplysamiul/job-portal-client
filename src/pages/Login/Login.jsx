@@ -4,6 +4,7 @@ import signLottie from '../../assets/lottie/Sign up.json';
 import Lottie from 'lottie-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import googleLogo from '../../assets/lottie/Google-Logo.json';
+import Swal from 'sweetalert2';
 
 const Login = () => {
     // USE CONTEXT
@@ -28,22 +29,38 @@ const Login = () => {
                 setUser(res.user);
                 setLoading(false);
                 navigate(from);
+                Swal.fire({
+                    text: "Login Successfully....!",
+                    icon: "success"
+                });
             }).catch(err => {
-                console.log(err)
+                setLoading(false);
+                Swal.fire({
+                    text: `${err.message}`,
+                    icon: "error"
+                });
             })
     }
 
     // HANDEL GOOGLE SIGN IN
     const handelGoogleSignIn = () => {
         signInWithGoogle()
-        .then(res => {
-            setUser(res.user);
-            setLoading(false);
-            navigate(from);
-        }).catch(err => {
-            setLoading(false);
-            console.log(err)
-        })
+            .then(res => {
+                setUser(res.user);
+                setLoading(false);
+                Swal.fire({
+                    // title: "The Internet?",
+                    text: "Login Successfully....!",
+                    icon: "success"
+                });
+                navigate(from);
+            }).catch(err => {
+                setLoading(false);
+                Swal.fire({
+                    text: `${err.message}`,
+                    icon: "error"
+                });
+            })
     }
     return (
         <div>
@@ -51,13 +68,13 @@ const Login = () => {
                 <div className='my-6 order-1 lg:order-0'>
                     <div className="card-body mx-auto">
                         <div>
-                           {loading ? <span className="loading loading-spinner loading-xl mx-auto flex items-center justify-center"></span>
-                           : <button onClick={handelGoogleSignIn} className='btn w-full border-1 border-gray-300'>
-                                <div className='flex items-center justify-center'>
-                                    <Lottie style={{ width: "80px", margin: "0 auto" }} animationData={googleLogo} loop={true} />
-                                    <p>SignIn with Google</p>
-                                </div>
-                            </button>}
+                            {loading ? <span className="loading loading-spinner loading-xl mx-auto flex items-center justify-center"></span>
+                                : <button onClick={handelGoogleSignIn} className='btn w-full border-1 border-gray-300'>
+                                    <div className='flex items-center justify-center'>
+                                        <Lottie style={{ width: "80px", margin: "0 auto" }} animationData={googleLogo} loop={true} />
+                                        <p>SignIn with Google</p>
+                                    </div>
+                                </button>}
                         </div>
                         <div className="divider -mb-2">OR</div>
                         <form onSubmit={handeleSignInForm}>
@@ -68,7 +85,7 @@ const Login = () => {
                                 <input name='pass' type="password" className="input w-full" placeholder="Password" />
                                 <div><a className="link link-hover">Forgot password?</a></div>
                                 {loading ? <span className="loading loading-spinner loading-xl mx-auto"></span>
-                                :<button className="btn btn-neutral mt-4 bg-second">Log In</button>}
+                                    : <button className="btn btn-neutral mt-4 bg-second">Log In</button>}
                                 <p className='mt-4 text-sm'>Are you a new user ? <Link to="/register" className='underline font-bold text-first'>Create Account</Link></p>
                             </fieldset>
                         </form>
