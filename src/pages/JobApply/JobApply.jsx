@@ -15,7 +15,7 @@ const JobApply = () => {
     const { company_logo, company, title } = job;
     useEffect(() => {
         setDataLoadiong(true);
-        fetch(`http://localhost:5000/jobs/${id}`)
+        fetch(`https://job-portal-server-black-beta.vercel.app/jobs/${id}`)
             .then(res => res.json())
             .then(data => {
                 setJob(data)
@@ -54,7 +54,7 @@ const JobApply = () => {
 
         // send job application to the databse
 
-        axios.post("http://localhost:5000/jobApplication", application)
+        axios.post("https://job-portal-server-black-beta.vercel.app/jobApplication", application)
             .then(function (res) {
                 if (res.data.insertedId) {
                     Swal.fire({

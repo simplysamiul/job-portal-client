@@ -9,10 +9,10 @@ const JobDetails = () => {
     // get specific data
     const [job, setJob] = useState({});
     const [dataLoading, setDataLoadiong] = useState(false);
-    
+
     useEffect(() => {
         setDataLoadiong(true);
-        fetch(`http://localhost:5000/jobs/${id}`)
+        fetch(`https://job-portal-server-black-beta.vercel.app/jobs/${id}`)
             .then(res => res.json())
             .then(data => {
                 setJob(data)
@@ -24,9 +24,9 @@ const JobDetails = () => {
     return (
         <div>
             {/* job details */}
-           {dataLoading ? <Loader />
-           
-           : <ShowJobDetails job={job} />}
+            {dataLoading ? <Loader />
+
+                : <ShowJobDetails job={job} />}
         </div>
     );
 };

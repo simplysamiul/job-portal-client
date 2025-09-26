@@ -12,7 +12,7 @@ const PostedJobDetailsView = () => {
 
     useEffect(() => {
         setDataLoadiong(true);
-        fetch(`http://localhost:5000/jobs/${id}`)
+        fetch(`https://job-portal-server-black-beta.vercel.app/jobs/${id}`)
             .then(res => res.json())
             .then(data => {
                 setJob(data)

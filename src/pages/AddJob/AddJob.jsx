@@ -25,7 +25,7 @@ const AddJob = () => {
 
         newJob.status = "Active";
 
-        axios.post("http://localhost:5000/jobs", newJob)
+        axios.post("https://job-portal-server-black-beta.vercel.app/jobs", newJob)
             .then(res => {
                 console.log(res)
                 if (res.data.insertedId) {

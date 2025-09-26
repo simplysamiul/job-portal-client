@@ -8,7 +8,7 @@ const Home = () => {
     const [dataLoading, setDataLoading] = useState(false);
     useEffect(() => {
         setDataLoading(true);
-        fetch("http://localhost:5000/jobs")
+        fetch("https://job-portal-server-black-beta.vercel.app/jobs")
             .then(res => res.json())
             .then(data => {
                 setJobs(data);
@@ -22,18 +22,18 @@ const Home = () => {
             <Banner />
             {/* all jobs */}
             {dataLoading ? <Loader />
-            :<div className='my-8'>
-                {/* jobs section header */}
-                <div className='text-center'>
-                    <h2 className='text-3xl md:text-4xl lg:text-5xl font-bold text-second'>Jobs of the day</h2>
-                    <p className='text-gray-600 text-lg mt-4 mb-8'>Search and connect with the right candidates faster.</p>
+                : <div className='my-8'>
+                    {/* jobs section header */}
+                    <div className='text-center'>
+                        <h2 className='text-3xl md:text-4xl lg:text-5xl font-bold text-second'>Jobs of the day</h2>
+                        <p className='text-gray-600 text-lg mt-4 mb-8'>Search and connect with the right candidates faster.</p>
 
-                    {/*  */}
-                </div>
-                
-                {/* all jobs */}
-                <Jobs jobs={jobs} />
-            </div>}
+                        {/*  */}
+                    </div>
+
+                    {/* all jobs */}
+                    <Jobs jobs={jobs} />
+                </div>}
         </div>
     );
 };

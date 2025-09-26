@@ -11,11 +11,11 @@ const SpecificJobApplicationList = () => {
     const [dataLoading, setDataLoadiong] = useState(false);
     // specific applicant details
     const [applicantDetails, setApplicantDetails] = useState({});
-    const {name, address, cv, description, email, github, linkdin, number, position} = applicantDetails;
+    const { name, address, cv, description, email, github, linkdin, number, position } = applicantDetails;
 
     useEffect(() => {
         setDataLoadiong(true);
-        fetch(`http://localhost:5000/applications/jobs/${job_id}`)
+        fetch(`https://job-portal-server-black-beta.vercel.app/applications/jobs/${job_id}`)
             .then(res => res.json())
             .then(data => {
                 setApplicantsLists(data)
@@ -45,11 +45,11 @@ const SpecificJobApplicationList = () => {
                             <tbody>
                                 {/* row 1 */}
                                 {
-                                    applicantsLists.map((applicantsList, index) => <ApplicantDetailsTable 
-                                    key={applicantsList._id} 
-                                    applicantsList={applicantsList} 
-                                    index={index} 
-                                    setApplicantDetails={setApplicantDetails}
+                                    applicantsLists.map((applicantsList, index) => <ApplicantDetailsTable
+                                        key={applicantsList._id}
+                                        applicantsList={applicantsList}
+                                        index={index}
+                                        setApplicantDetails={setApplicantDetails}
                                     />)
                                 }
                             </tbody>

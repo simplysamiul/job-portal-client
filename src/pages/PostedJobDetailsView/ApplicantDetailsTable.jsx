@@ -13,7 +13,7 @@ const ApplicantDetailsTable = ({ applicantsList: applicant, index, setApplicantD
     const handleStatusChange = (e, applicantId) => {
         const status = e.target.value;
 
-        axios.patch(`http://localhost:5000/applications/${applicantId}`, { status })
+        axios.patch(`https://job-portal-server-black-beta.vercel.app/applications/${applicantId}`, { status })
             .then(res => {
                 if (res.data.modifiedCount) {
                     Swal.fire({
@@ -37,9 +37,9 @@ const ApplicantDetailsTable = ({ applicantsList: applicant, index, setApplicantD
                 <td>{email}</td>
                 <td>{number}</td>
                 <td>
-                    <select defaultValue={status} onChange={e => handleStatusChange(e, _id)} 
-                    disabled = {status === "Hired" ? true : status === "Rejected" ? true : false } 
-                    className="select">
+                    <select defaultValue={status} onChange={e => handleStatusChange(e, _id)}
+                        disabled={status === "Hired" ? true : status === "Rejected" ? true : false}
+                        className="select">
                         <option disabled={true}>Update Status</option>
                         <option>Under Review</option>
                         <option>Interview</option>
